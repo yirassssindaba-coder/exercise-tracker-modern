@@ -1,118 +1,101 @@
 <div align="center">
 
 <!-- Animated Wave Header -->
-<img src="https://capsule-render.vercel.app/api?type=waving&height=210&color=0:0ea5e9,100:22c55e&text=Request%20Header%20Parser&fontSize=54&fontColor=ffffff&animation=fadeIn&fontAlignY=35&desc=Express%20Microservice%20%7C%20IP%20%2B%20Language%20%2B%20User-Agent%20(API)&descAlignY=58" />
+<img src="https://capsule-render.vercel.app/api?type=waving&height=210&color=0:16a34a,100:22c55e&text=Exercise%20Tracker%20Modern&fontSize=56&fontColor=ffffff&animation=fadeIn&fontAlignY=35&desc=Users%20•%20Exercises%20•%20Logs%20API%20(FCC)&descAlignY=58" />
 
 <!-- Typing SVG -->
-<img src="https://readme-typing-svg.demolab.com?font=Fira+Code&size=18&duration=2600&pause=650&color=22C55E&center=true&vCenter=true&width=920&lines=FCC%20APIs%20%26%20Microservices%20Project;GET%20%2Fapi%2Fwhoami%20%E2%86%92%20ipaddress%20%2B%20language%20%2B%20software;Fast%2C%20minimal%2C%20deployable%20in%20minutes" />
+<img src="https://readme-typing-svg.demolab.com?font=Fira+Code&size=18&duration=3000&pause=700&color=16A34A&center=true&vCenter=true&width=780&lines=Create+users%2C+add+exercises%2C+get+logs+(FCC);Fast+setup+%E2%80%A2+Clean+API+%E2%80%A2+PowerShell-friendly;In-memory+store+for+local+dev+%E2%86%92+easy+to+upgrade" />
 
-<p>
-  <img src="https://img.shields.io/badge/Node.js-18%2B-339933?logo=node.js&logoColor=white" />
-  <img src="https://img.shields.io/badge/Express-4-111827?logo=express&logoColor=white" />
-  <img src="https://img.shields.io/badge/freeCodeCamp-Ready-0A0A23?logo=freecodecamp&logoColor=white" />
-  <img src="https://img.shields.io/badge/License-MIT-22c55e" />
-</p>
-
-<p align="center">
-  🛰️ <b>Request Header Parser</b> adalah microservice kecil yang mengembalikan metadata request: <b>IP</b>, <b>bahasa</b>, dan <b>User-Agent</b>.
-</p>
-
+<!-- Badges -->
+![node](https://img.shields.io/badge/node-%3E%3D18-16a34a?logo=node.js&logoColor=white)
+![express](https://img.shields.io/badge/express-API-0ea5e9?logo=express&logoColor=white)
+![fcc](https://img.shields.io/badge/freeCodeCamp-Exercise%20Tracker-0f172a?logo=freecodecamp&logoColor=white)
+![windows](https://img.shields.io/badge/windows-powershell-2563eb?logo=windows&logoColor=white)
 </div>
 
 ---
 
 ## Overview
 
-Project ini adalah implementasi **Request Header Parser Microservice** (freeCodeCamp).  
-Kamu cukup jalankan server, lalu akses endpoint:
+🏃 **Exercise Tracker Modern** is an Express microservice that matches the FreeCodeCamp Exercise Tracker spec: create users, add exercises, and query logs.
 
-- `GET /api/whoami` → `{ ipaddress, language, software }`
+> Note: this project uses an **in-memory store** (data resets when the server restarts). It’s perfect for local/FCC testing and easy to upgrade to MongoDB later.
 
 ---
 
 ## Features
 
-- ✅ Endpoint `GET /api/whoami` sesuai requirement FCC
-- ✅ Output JSON yang simpel dan konsisten
-- ✅ CORS enabled (remote testable)
-- ✅ `trust proxy` enabled supaya `req.ip` tetap benar di environment cloud/proxy
+- ✅ Create users and list all users
+- ✅ Add exercises with optional date
+- ✅ Get logs with `from`, `to`, and `limit` filters
+- ✅ FCC-compatible responses
+- ✅ Simple demo UI (`/`)
 
 ---
 
-## API
+## API Endpoints
 
-## `GET /api/whoami`
-
-**Response (contoh):**
-```json
-{
-  "ipaddress": "::1",
-  "language": "en-US,en;q=0.9,id;q=0.8",
-  "software": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) ..."
-}
-```
-
-## `GET /api/hello` (opsional)
-
-**Response:**
-```json
-{ "greeting": "hello API" }
-```
+- `POST /api/users` — create user (`username`)
+- `GET /api/users` — list users
+- `POST /api/users/:_id/exercises` — add exercise (`description`, `duration`, optional `date`)
+- `GET /api/users/:_id/logs?from&to&limit` — logs
 
 ---
 
 ## Quick Start
 
-## Windows PowerShell (VS Code)
+### Windows PowerShell
 
 ```powershell
-cd "C:\Users\ASUS\Desktop\Proyek\headerparser-main"   # sesuaikan folder hasil extract
+cd "exercise-tracker-modern"
+
+# install dependencies
 npm install
+
+# optional: set port (default 3000)
+Copy-Item .env.example .env -ErrorAction SilentlyContinue
+
+# run
 npm start
 ```
 
-Buka:
-- `http://localhost:3000/`
-- `http://localhost:3000/api/whoami`
+Open:
+- `http://localhost:3000`
 
-## macOS / Linux
+---
 
-```bash
-npm install
-npm start
+## Environment Variables
+
+Create `.env` (optional) to override defaults:
+
+```env
+PORT=3000
 ```
+
+---
+
+## Scripts
+
+- `npm start` — run server
+- `npm run dev` — watch mode (Node)
+
+---
+
+## Troubleshooting
+
+- **Port already in use** → change `PORT` in `.env`.
+- **Dates not filtering as expected** → use ISO format: `YYYY-MM-DD`.
 
 ---
 
 ## Project Structure
 
 ```text
-.
-├─ index.js          # Express server + routes
-├─ public/           # Static assets
-├─ views/            # Landing page
-├─ sample.env        # Example env
-└─ package.json
-```
-
----
-
-## Troubleshooting
-
-## Port already in use
-
-Ganti port sementara (PowerShell):
-```powershell
-$env:PORT="3001"
-npm start
-```
-
-## `curl` di PowerShell
-
-Di Windows PowerShell, `curl` kadang alias untuk `Invoke-WebRequest`.  
-Alternatif:
-```powershell
-Invoke-RestMethod http://localhost:3000/api/whoami
+exercise-tracker-modern/
+  index.js
+  public/
+  views/
+  README.md
 ```
 
 ---
